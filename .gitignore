@@ -1,0 +1,11 @@
+node_modules
+dist
+.idea
+.env*
+.env.aws.example
+.env.local.example
+.env.local
+coverage
+.DS_Store
+.vscode/*
+task_definitions*.*
