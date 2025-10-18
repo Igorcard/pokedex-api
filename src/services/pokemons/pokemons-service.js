@@ -7,12 +7,11 @@ import * as pokemonsRepository from '../../repository/pokemons/pokemons-reposito
 import * as tiposRepository from '../../repository/tipos/tipos-repository.js'
 
 export async function get(req, res) {
-  const { headers } = req
+  const { query } = req
 
   let pokemons 
   try {
-    pokemons = await pokemonsRepository.findPokemons(headers)
-
+    pokemons = await pokemonsRepository.findPokemons(query)
     if (!pokemons) {
       const message = 'Não foram encontrados pokemons'
       throw notFound(res, message)

@@ -15,61 +15,61 @@ const PokemonSearchPage = () => {
 
   const fetchPokemons = useCallback(async () => {
     try {
-      const params = { ...filters, page: currentPage, limit: 12 };
-      const response = await getPokemons(params);
-      setPokemons(response.data.pokemons || []);
-      setTotalPages(response.data.pagination.totalPages || 0);
-      setError(null);
+      const params = { ...filters, page: currentPage, limit: 12 }
+      const response = await getPokemons(params)
+      setPokemons(response.data.pokemons || [])
+      setTotalPages(response.data.pagination.totalPages || 0)
+      setError(null)
     } catch (err) {
-      setError('Falha ao buscar Pokémon. Verifique se o back-end está rodando.');
-      console.error(err);
+      setError('Falha ao buscar Pokémon. Verifique se o back-end está rodando.')
+      console.error(err)
     }
-  }, [filters, currentPage]);
+  }, [filters, currentPage])
 
   const fetchTipos = async () => {
     try {
-      const response = await getTipos();
-      setTipos(response.data || []);
+      const response = await getTipos()
+      setTipos(response.data.tipos || [])
     } catch (err) {
-      console.error('Falha ao buscar tipos:', err);
+      console.error('Falha ao buscar tipos:', err)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchPokemons();
-  }, [fetchPokemons]);
+    fetchPokemons()
+  }, [fetchPokemons])
 
   useEffect(() => {
-    fetchTipos();
-  }, []);
+    fetchTipos()
+  }, [])
 
   const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-    setCurrentPage(1); // Reset to first page on new filter
-  };
+    setFilters(newFilters)
+    setCurrentPage(1)
+  }
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este Pokémon?')) {
       try {
-        await deletePokemon(id);
-        // Refresh the list after deletion
-        fetchPokemons();
+        await deletePokemon(id)
+
+        fetchPokemons()
       } catch (err) {
-        console.error('Falha ao excluir Pokémon:', err);
-        alert('Não foi possível excluir o Pokémon.');
+        console.error('Falha ao excluir Pokémon:', err)
+        alert('Não foi possível excluir o Pokémon.')
       }
     }
-  };
+  }
 
   const handleEdit = (id) => {
     // Placeholder for edit functionality
-    console.log(`Edit Pokémon with id: ${id}`);
-    alert(`Funcionalidade de edição para o Pokémon ${id} ainda não implementada.`);
-  };
+    console.log(`Edit Pokémon with id: ${id}`)
+    alert(`Funcionalidade de edição para o Pokémon ${id} ainda não implementada.`)
+  }
 
   return (
     <div className="container mt-4">
@@ -102,7 +102,7 @@ const PokemonSearchPage = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PokemonSearchPage;
+export default PokemonSearchPage

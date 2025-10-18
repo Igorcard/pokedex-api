@@ -13,7 +13,7 @@ export const getPokemons = (params) => {
 };
 
 export const getTipos = () => {
-  return apiClient.get('/tipos');
+  return apiClient.get('/pkx/tipos');
 };
 
 export const deletePokemon = (id) => {

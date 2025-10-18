@@ -4,18 +4,18 @@ import React from 'react';
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePrevious = () => {
     if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+      onPageChange(currentPage - 1)
     }
-  };
+  }
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+      onPageChange(currentPage + 1)
     }
-  };
+  }
 
   if (totalPages <= 1) {
-    return null; // Don't render pagination if there's only one page
+    return null
   }
 
   return (
@@ -32,7 +32,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </li>
       </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination
