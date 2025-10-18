@@ -2,7 +2,8 @@ import express from 'express'
 import logger from 'morgan'
 import dotenv from 'dotenv'
 
-import * as routesExport from './routes/routes-export.js'
+import { exportRoutes } from './routes/routes-export.js'
+import { connectDatabase } from './configs/mongo.js'
 
 import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
@@ -34,6 +35,7 @@ app.use(
 
 app.use('/oap/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc(swaggerOptions)))
 
-routesExport.exportRoutes(app)
+await connectDatabase()
+await exportRoutes(app)
 
 export default app

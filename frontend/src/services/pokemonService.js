@@ -1,0 +1,23 @@
+
+import axios from 'axios';
+
+const apiClient = axios.create({
+  baseURL: 'http://localhost:50900',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export const getPokemons = (params) => {
+  return apiClient.get('/pkx/pokemons', { params });
+};
+
+export const getTipos = () => {
+  return apiClient.get('/tipos');
+};
+
+export const deletePokemon = (id) => {
+  return apiClient.delete(`/pokemons/${id}`);
+};
+
+// Add other service calls like createPokemon, updatePokemon as needed

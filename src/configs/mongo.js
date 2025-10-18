@@ -14,7 +14,7 @@ const {
 } = process.env
 
 const authPart = DB_USERNAME && DB_PASSWORD ? `${DB_USERNAME}:${DB_PASSWORD}@` : ''
-const uri = `mongodb://${authPart}${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
+const url = `mongodb://${authPart}${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -26,7 +26,7 @@ const mongooseOptions = {
 
 export async function connectDatabase() {
   try {
-    await mongoose.connect(uri, mongooseOptions)
+    await mongoose.connect(url, mongooseOptions)
     console.log('Connected to MongoDB')
   } catch (error) {
     console.error('Error connecting to MongoDB:', error.message)

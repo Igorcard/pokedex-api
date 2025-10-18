@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const PokemonSchema = new mongoose.Schema({
   codigo: {
@@ -10,13 +10,14 @@ const PokemonSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tipoPrimario: {
-    type: String,
+  tipo_primario: {
+    type: Number,
     required: true
   },
-  tipoSecundario: {
-    type: String
+  tipo_secundario: {
+    type: Number,
+    default: null
   }
-});
+})
 
-export const Pokemon = mongoose.model('Pokemon', PokemonSchema);
+export const Pokemons = mongoose.model('pokemons', PokemonSchema)
