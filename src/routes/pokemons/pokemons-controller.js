@@ -13,3 +13,33 @@ export async function get(req, res) {
     return error
   }
 }
+
+export async function create(req, res) {
+  try {
+    const pokemon = await pokemonsService.create(req,res)
+    return ok(res, pokemon)
+  } catch (error) {
+    console.log(`Error creating pokemon. Error: ${JSON.stringify(error.message)}`)
+    return error
+  }
+}
+
+export async function deleteById(req, res) {
+  try {
+    const pokemon = await pokemonsService.deleteById(req,res)
+    return ok(res, pokemon)
+  } catch (error) {
+    console.log(`Error deleting pokemons. Error: ${JSON.stringify(error.message)}`)
+    return error
+  }
+}
+
+export async function updateById(req, res) {
+  try {
+    const pokemon = await pokemonsService.updateById(req,res)
+    return ok(res, pokemon)
+  } catch (error) {
+    console.log(`Error updating pokemons. Error: ${JSON.stringify(error.message)}`)
+    return error
+  }
+}

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Pokemons } from '../../models/pokemons.js'
+import { Counters } from '../../models/counters.js'
 
 export async function findPokemons({nome = null, tipo = null, page = 1, limit = 20}){
   const filtros = {}
@@ -40,4 +41,44 @@ export async function findPokemons({nome = null, tipo = null, page = 1, limit = 
       totalPages
     }
   }
+}
+
+export async function deleteById(id){
+  const pokemon = await Pokemons.findOneAndDelete({ codigo: id})
+  return pokemon 
+}
+
+export async function updateById(codigo, payload){
+  const pokemon = await Pokemons.findOneAndUpdate(
+      { codigo },
+      payload,
+      { new: true } 
+    )
+
+  return pokemon 
+}
+
+export async function getNextSequence(name) {
+  const ret = await Counters.findOneAndUpdate(
+    { _id: name },
+    { $inc: { seq: 1 } },
+    { 
+      returnDocument: "after",
+      upsert: true 
+    }
+  )
+  return ret.seq
+}
+
+export async function create({nome, tipo_primario, tipo_secundario}){
+  const codigo = await getNextSequence("pokemons_codigo");
+
+  const pokemon = await Pokemons.insertOne({
+    codigo,
+    nome,
+    tipo_primario,
+    tipo_secundario
+  })
+
+  return pokemon
 }

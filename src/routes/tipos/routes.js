@@ -33,9 +33,85 @@ tiposRouter.get('/pkx/tipos', tiposController.get)
 
 /**
  * @openapi
+ * /pkx/tipos:
+ *    post:
+ *      summary: Create a Pokemon 
+ *      description: Create one Pokemon by body content
+ *      produces:
+ *        - application/json
+ *      tags:
+ *        - tipos
+ *      responses:
+ *        '200':
+ *          description: Data of Pokemon
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/tipos' 
+ *        '400':
+ *          description: Bad request
+ *        '500':
+ *          description: Something went wrong
+ */
+tiposRouter.post('/pkx/tipos', tiposController.create)
+
+/**
+ * @openapi
+ * /pkx/tipos/{id}:
+ *    get:
+ *      summary: Delete one Tipo 
+ *      description: Delete one Tipo by id
+ *      produces:
+ *        - application/json
+ *      tags:
+ *        - tipos
+ *      responses:
+ *        '200':
+ *          description: Deleted Tipo
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: delete succesfull
+ *        '400':
+ *          description: Bad request
+ *        '500':
+ *          description: Something went wrong
+ */
+tiposRouter.post('/pkx/tipos/:id', tiposController.deleteById)
+
+/**
+ * @openapi
+ * /pkx/tipos/{id}:
+ *    put:
+ *      summary: Update one Tipos 
+ *      description: Update one Tipos by id
+ *      produces:
+ *        - application/json
+ *      tags:
+ *        - tipos
+ *      responses:
+ *        '200':
+ *          description: Update Tipos
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/tipos'
+ *        '400':
+ *          description: Bad request
+ *        '500':
+ *          description: Something went wrong
+ */
+tiposRouter.put('/pkx/tipos/:id', tiposController.updateById)
+
+/**
+ * @openapi
  * components:
  *   schemas:
- *     pokemon:
+ *     tipos:
  *        type: object
  *        properties:
  *          codigo:

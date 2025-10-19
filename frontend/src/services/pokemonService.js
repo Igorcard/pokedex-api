@@ -17,7 +17,7 @@ export const getTipos = () => {
 };
 
 export const deletePokemon = (id) => {
-  return apiClient.delete(`/pokemons/${id}`);
+  return apiClient.delete(`/pkx/pokemons/${id}`);
 };
 
 // Add other service calls like createPokemon, updatePokemon as needed
