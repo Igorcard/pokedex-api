@@ -4,12 +4,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run prod",
     "server": "node ./src/index.js",
     "dev": "nodemon --exec npm run server",
     "lint": "eslint .",
-    "pretest": "eslint .",
-    "release": "dotenv release-it"
+    "release": "dotenv release-it",
+    "createDatabases": "npx migrate-mongo up -f migrate-mongo-config.cjs",
+    "dropDatabases": "npx migrate-mongo down -f migrate-mongo-config.cjs"
   },
   "keywords": [],
   "author": "",

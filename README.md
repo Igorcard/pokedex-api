@@ -64,7 +64,7 @@ DB_RETRY_WRITES=true
 2.  **Execute as Migrações**: Para criar as coleções e inserir os dados iniciais no banco de dados, execute o seguinte comando:
 
     ```bash
-    npx migrate-mongo up -f migrate-mongo-config.cjs
+    npm run createDatabases
     ```
 
 3.  **Inicie o Servidor**: Para iniciar o servidor de desenvolvimento, execute:
@@ -100,8 +100,19 @@ A API está prefixada com `/pkx`.
 # Pokédex Frontend
 
 ## Rodando a Aplicação
+ 
+1.  Desloque ate o frontend:
 
-1.  **Inicie a Página**: Para iniciar a pagina, execute em \frontend:
+    ```bash
+    cd frontend
+    ```
+
+2.  Instale as dependências:
+    ```bash
+    npm install
+    ```
+
+3.  Para iniciar a pagina, execute em \frontend:
     ```bash
     npm start
     ```
