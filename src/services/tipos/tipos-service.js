@@ -1,7 +1,7 @@
 'use strict'
 
 import { checkSchema } from '../../helpers/validators-helper.js'
-import { notFound, badRequest, internalServerError } from '../../helpers/result-helper.js'
+import { AppError } from '../../helpers/result-helper.js'
 import * as tiposRepository from '../../repository/tipos/tipos-repository.js'
 import * as pokemonsService from '../../services/pokemons/pokemons-service.js'
 
@@ -14,12 +14,11 @@ export async function get(req, res) {
 
     if (!tipos) {
       const message = 'Não foram encontrados tipos'
-      throw notFound(res, message)
+      throw new AppError(message, 404)
     }
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)  
   }
 
   return { tipos }
@@ -31,22 +30,21 @@ export async function deleteById(req, res) {
 
   if (!id) {
     const message = "Esquema inválido, [id] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   params.query = { tipo : id}
   const pokemons = await pokemonsService.get(params, res)
   if (pokemons.pokemons.length > 0) {
     const message = `Há pokemons com o [id]: ${id} cadastrado`
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   try {
     await tiposRepository.deleteById(id)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500) 
   }
 
   return { message : 'Deletado com sucesso!'}
@@ -59,21 +57,20 @@ export async function updateById(req, res) {
 
   if (!nome) {
     const message = "Esquema inválido, [nome] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   if (!codigo) {
     const message = "Esquema inválido, [id] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   let tipo
   try {
     tipo = await tiposRepository.updateById(codigo, nome)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500) 
   }
 
   return { tipo }
@@ -84,16 +81,15 @@ export async function create(req, res) {
 
   if (!body.nome) {
     const message = "Esquema inválido, [nome] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   let tipo
   try {
     tipo = await tiposRepository.create(body)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)
   }
 
   return { tipo }

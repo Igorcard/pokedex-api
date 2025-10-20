@@ -1,7 +1,7 @@
 'use strict'
 
 import { checkSchema } from '../../helpers/validators-helper.js'
-import { notFound, badRequest, internalServerError } from '../../helpers/result-helper.js'
+import { AppError } from '../../helpers/result-helper.js'
 import * as pokemonsSchemas from '../../schemas/pokemons-schemas.js'
 import * as pokemonsRepository from '../../repository/pokemons/pokemons-repository.js'
 import * as tiposRepository from '../../repository/tipos/tipos-repository.js'
@@ -14,21 +14,19 @@ export async function get(req, res) {
     pokemons = await pokemonsRepository.findPokemons(query)
     if (!pokemons) {
       const message = 'Não foram encontrados pokemons'
-      throw notFound(res, message)
+      throw new AppError(message, 404)
     }
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)
   }
 
   let tipos
   try {
     tipos = await tiposRepository.findTipos()
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)
+    throw new AppError(message, 500)
   }
 
   const buildPokemons = builtPokemons(pokemons, tipos)
@@ -61,15 +59,14 @@ export async function deleteById(req, res) {
 
   if (!id) {
     const message = "Esquema inválido, [id] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   try {
     await pokemonsRepository.deleteById(id)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)
   }
 
   return { message : 'Deletado com sucesso!'}
@@ -84,12 +81,12 @@ export async function updateById(req, res) {
 
   if (schema.length > 0) {
     const message = schema.join(' | ')
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   if (!codigo) {
     const message = "Esquema inválido, [id] não foi provido"
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   await checkTiposPokemon(payload)
@@ -98,9 +95,8 @@ export async function updateById(req, res) {
   try {
     pokemon = await pokemonsRepository.updateById(codigo, payload)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)
   }
 
   return { pokemon }
@@ -113,7 +109,7 @@ export async function create(req, res) {
   const schema = checkSchema(payload, pokemonsSchemas.createUpdate)
   if (schema.length > 0) {
     const message = schema.join(' | ')
-    throw badRequest(res, message)
+    throw new AppError(message, 400)
   }
 
   await checkTiposPokemon(payload)
@@ -122,9 +118,8 @@ export async function create(req, res) {
   try {
     pokemon = await pokemonsRepository.create(payload)
   } catch (error) {
-    console.log(error)
     const message = error.message
-    throw internalServerError(res, message)  
+    throw new AppError(message, 500)
   }
 
   return { pokemon }
@@ -135,7 +130,7 @@ async function checkTiposPokemon(tipos){
     const tipo = await tiposRepository.findById(tipos.tipo_primario)
     if (!tipo){
       const message = `Tipo para [tipo_primario] : ${tipos.tipo_primario} não foi encontrado`
-      throw notFound(res, message)
+      throw new AppError(message, 404)
     }
   }
 
@@ -143,7 +138,7 @@ async function checkTiposPokemon(tipos){
     const tipo = await tiposRepository.findById(tipos.tipo_secundario)
     if (!tipo){
       const message = `Tipo para [tipo_secundario] : ${tipos.tipo_secundario} não foi encontrado`
-      throw notFound(res, message)
+      throw new AppError(message, 404)
     }
   }
 }

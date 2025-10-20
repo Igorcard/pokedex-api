@@ -1,14 +1,14 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react'
 
 const SearchBar = ({ tipos, onFilterChange }) => {
-  const [nome, setNome] = useState('');
-  const [tipo, setTipo] = useState('');
+  const [nome, setNome] = useState('')
+  const [tipo, setTipo] = useState('')
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    onFilterChange({ nome, tipo });
-  };
+    e.preventDefault()
+    onFilterChange({ nome, tipo })
+  }
 
   return (
     <form onSubmit={handleSearch} className="mb-4">
@@ -34,7 +34,7 @@ const SearchBar = ({ tipos, onFilterChange }) => {
           >
             <option value="">Todos os Tipos</option>
             {tipos.map((t) => (
-              <option key={t._id} value={t.codigo}>{t.nome}</option>
+              <option key={t.codigo} value={t.codigo}>{t.nome}</option>
             ))}
           </select>
         </div>
@@ -43,7 +43,7 @@ const SearchBar = ({ tipos, onFilterChange }) => {
         </div>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

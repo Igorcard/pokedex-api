@@ -10,7 +10,11 @@ export async function get(req, res) {
     return ok(res, pokemons)
   } catch (error) {
     console.log(`Error retrieving pokemons. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -20,7 +24,11 @@ export async function create(req, res) {
     return ok(res, pokemon)
   } catch (error) {
     console.log(`Error creating pokemon. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -30,7 +38,11 @@ export async function deleteById(req, res) {
     return ok(res, pokemon)
   } catch (error) {
     console.log(`Error deleting pokemons. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -40,6 +52,10 @@ export async function updateById(req, res) {
     return ok(res, pokemon)
   } catch (error) {
     console.log(`Error updating pokemons. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }

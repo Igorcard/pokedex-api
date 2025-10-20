@@ -33,7 +33,7 @@ app.use(
   })
 )
 
-app.use('/oap/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc(swaggerOptions)))
+app.use('/pkx/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc(swaggerOptions)))
 
 await connectDatabase()
 await exportRoutes(app)

@@ -111,7 +111,7 @@ pokemonsRouter.put('/pkx/pokemons/:id', pokemonsController.updateById)
  * @openapi
  * components:
  *   schemas:
- *     pokemon:
+ *     pokemons:
  *        type: object
  *        properties:
  *          codigo:

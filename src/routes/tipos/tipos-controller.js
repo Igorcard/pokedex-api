@@ -10,7 +10,11 @@ export async function get(req, res) {
     return ok(res, tipos)
   } catch (error) {
     console.log(`Error retrieving tipos. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -20,7 +24,11 @@ export async function create(req, res) {
     return ok(res, tipo)
   } catch (error) {
     console.log(`Error creating tipo. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -29,8 +37,13 @@ export async function deleteById(req, res) {
     const tipos = await tiposService.deleteById(req,res)
     return ok(res, tipos)
   } catch (error) {
-    console.log(`Error retrieving tipos. Error: ${JSON.stringify(error.message)}`)
-    return error
+    console.log(`Error deleting tipos. Error: ${JSON.stringify(error.message)}`)
+    
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }
 
@@ -40,6 +53,10 @@ export async function updateById(req, res) {
     return ok(res, tipos)
   } catch (error) {
     console.log(`Error updating tipos. Error: ${JSON.stringify(error.message)}`)
-    return error
+    const statusCode = error.statusCode || 500
+    return res.status(statusCode).json({ 
+      message: error.message,
+      error: true 
+    })
   }
 }

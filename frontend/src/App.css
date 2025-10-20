@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.form-type {
+  z-index: 2000;
+}
+
+.manage-type {
+  z-index: 1001;
+}
+
+
