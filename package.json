@@ -4,7 +4,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run prod",
     "server": "node ./src/index.js",
     "dev": "nodemon --exec npm run server",
     "lint": "eslint .",
