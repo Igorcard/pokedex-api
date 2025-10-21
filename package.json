@@ -7,9 +7,7 @@
     "server": "node ./src/index.js",
     "dev": "nodemon --exec npm run server",
     "lint": "eslint .",
-    "release": "dotenv release-it",
-    "createDatabases": "npx migrate-mongo up -f migrate-mongo-config.cjs",
-    "dropDatabases": "npx migrate-mongo down -f migrate-mongo-config.cjs"
+    "release": "dotenv release-it"
   },
   "keywords": [],
   "author": "",
